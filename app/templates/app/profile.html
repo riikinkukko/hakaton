@@ -1,0 +1,87 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="container">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for i in images %}
+    <div class="card" style="width: 18rem;">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#i{{ i.id }}">
+        <img src="{{ i.url_to_file.url }}" class="card-image-top" height="200" width="250">
+    </button>
+      <div class="card-body">
+        <p class="card-text">{{ i.tags }}</p>
+      </div>
+    </div>
+
+    <div class="modal fade" id="i{{ i.id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-bs-toggle="modal" aria-label="Close" data-bs-target="#i{{ i.id }}">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img src="{{ i.url_to_file.url }}">
+              <p>{{ i.tags }}</p>
+              <p>Дата добавления: {{ i.datetime }}</p>
+          </div>
+          <div class="modal-footer">
+              <form method="post">
+                  {% csrf_token %}
+                  <button name="download_photo" value="{{ i.id }}">Скачать изображение</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+
+{% for i in videos %}
+             <div class="card" style="width: 18rem;">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#v{{ i.id }}">
+        <img src="{{ i.url_to_file.url }}" class="card-image-top" height="200" width="250">
+    </button>
+      <div class="card-body">
+        <p class="card-text">{{ i.tags }}</p>
+      </div>
+    </div>
+
+    <div class="modal fade" id="v{{ i.id }}" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-bs-toggle="modal" aria-label="Close" data-bs-target="#v{{ i.id }}">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <video controls width="1000">
+                <source src="{{ i.url_to_file.url }}"/>
+            </video>
+              <p>{{ i.tags }}</p>
+              <p>Дата добавления: {{ i.datetime }}</p>
+          </div>
+          <div class="modal-footer">
+              <form method="post">
+                  {% csrf_token %}
+                  <button name="download_video" value="{{ i.id }}">Скачать видео</button>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+        </div>
+</div>
+<h3>Альбомы:</h3>
+{% for i in albums %}
+<li><a href="{% url 'album' i %}">Просмотреть альбом</a></li>
+{% endfor %}
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="name">
+    <button>Создать новый альбом</button>
+</form>
+{% endblock %}
