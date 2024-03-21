@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,8 +11,8 @@
   integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
   crossorigin="anonymous"
 />
-<link rel="stylesheet" href="./style.css" />
- <link
+<link rel="stylesheet" href="{% static 'css/style.css'%}" />
+ {% comment %} <link
       rel="stylesheet"
       href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css"
     />
@@ -20,7 +21,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
-    <script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>  
+    <script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>   {% endcomment %}
 <body>
 {% for i, j in menu.items %}
     <p><a href = "{% url j %}">{{ i }}</a></p>

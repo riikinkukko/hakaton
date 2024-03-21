@@ -1,0 +1,20 @@
+.container {
+  border: 3px solid #ccc;
+  border-radius: 5px;
+}
+* {
+  background-color: aqua;
+}
+.text-center {
+  font-size: 72px;
+}
+.card {
+  display: flex;
+}
+.close {
+  background: #000000;
+}
+.modal-img {
+  width: 250px;
+  height: 250px;
+}

@@ -29,14 +29,14 @@
           <div class="panel-heading">
             <header class="panel-title">
               <div class="text-center">
-                <strong>Фамилия Имя отчество</strong>
+                <h4>Фамилия Имя Отчество</h4>
               </div>
             </header>
           </div>
           <div class="panel-body">
             <div class="text-center" id="author">
-              <img src="#" />
-              <h3>на всякий пусть будет текст здесь</h3>
+              <img src="../../media/аватарка.jpg" width="250px" heigh="250px"/>
+              <h6>Описание</h6>
             </div>
           </div>
         </div>
@@ -57,11 +57,13 @@
                   <div class="card" style="width: 18rem">
                     <button
                       type="button"
-                      class="btn btn-primary"
+                      class="btn"
                       data-bs-toggle="modal"
                       data-bs-target="#i{{ i.id }}"
-                    >
-                      <img
+                      background-image=""{{ i.url_to_file.url }}""
+                      height="200"
+                      width="250"
+                    ><img
                         src="{{ i.url_to_file.url }}"
                         class="card-image-top"
                         height="200"
@@ -86,8 +88,7 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <button
-                            type="button"
-                            class="close"
+                            class="close" 
                             data-bs-toggle="modal"
                             aria-label="Close"
                             data-bs-target="#i{{ i.id }}"
@@ -96,16 +97,19 @@
                           </button>
                         </div>
                         <div class="modal-body">
-                          <img src="{{ i.url_to_file.url }}" />
+                          <img class="modal-img" 
+                          src="{{ i.url_to_file.url }}" 
+                          max-height="650px"
+                          max-width="850px" />
                           <p>{{ i.tags }}</p>
                           <p>Дата добавления: {{ i.datetime }}</p>
                         </div>
                         <div class="modal-footer">
                           <form method="post">
                             {% csrf_token %}
-                            <button name="download_photo" value="{{ i.id }}">
+                            <a href="{{ i.url_to_file.url }}" class="btn btn-outline-success" download>
                               Скачать изображение
-                            </button>
+                          </a>
                           </form>
                         </div>
                       </div>
@@ -181,7 +185,6 @@
     </div>
   </div>
 </div>
-{% comment %} до сюда профиль мой{% endcomment %}
 
 
 
