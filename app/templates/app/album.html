@@ -156,17 +156,19 @@
 {% for i in users %}
 {% if i.id in participants_ids %}
 <li>{{ i.username }}</li>
-<form method="post">
-    {% csrf_token %}
-    <button name="delete_participant" value="{{ i.id }}">Удалить участника</button>
-</form>
+{% if request.user.id in participants_ids %}
+    <form method="post">
+        {% csrf_token %}
+        <button name="delete_participant" value="{{ i.id }}">Удалить участника</button>
+    </form>
+{% endif %}
 {% endif %}
 {% endfor %}
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_participant">
-        <p>Добавить участника</p>
-</button>
-
+{% if request.user.id in participants_ids %}
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_participant">
+            <p>Добавить участника</p>
+    </button>
+{% endif %}
     <div class="modal fade" id="add_participant" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">

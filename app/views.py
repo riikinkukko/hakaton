@@ -178,13 +178,13 @@ def upload_video(request):
     })
 
 @login_required
-def show_profile(request):
-    images = Image.objects.filter(user_id=request.user.id)
+def show_profile(request, profile_id):
+    user = get_object_or_404(User, id=profile_id)
+    images = Image.objects.filter(user_id=profile_id)
     images_new = []
-    videos = Video.objects.filter(user_id=request.user.id)
+    videos = Video.objects.filter(user_id=profile_id)
     videos_new = []
-    alb = Album.objects.filter(participant_ids__contains=str(request.user.id))
-    albums = []
+    alb = Album.objects.filter(participant_ids__contains=str(profile_id))
     flag_img = True
     for image in images:
         for album in alb:
@@ -203,9 +203,7 @@ def show_profile(request):
             videos_new.append(video)
         flag_vid = True
 
-    for i in alb:
-        albums.append(i.id)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.id == profile_id:
         name = request.POST.get('name')
         Album.objects.create(participant_ids=str(request.user.id), image_ids='', video_ids='', name=name)
         return redirect('show_profile')
@@ -213,7 +211,8 @@ def show_profile(request):
     return render(request, "app/profile.html", {
         "images": images_new,
         "videos": videos_new,
-        "albums": albums,
+        "albums": alb,
+        "profile_id": profile_id,
     })
 
 def register(request):
@@ -253,7 +252,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('profile', user.id)
+            return redirect('show_profile', user.id)
         else:
             error_message = 'Неверные учетные данные. Попробуйте еще раз.'
     else:
@@ -277,7 +276,8 @@ def profile_search(request):
     model = User
     template_name = 'app/profile_search.html'
     users = model.objects.all()
-
+    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    users = model.objects.filter(username__iregex=q)
     return render(request, template_name, {
         'users': users,
     })

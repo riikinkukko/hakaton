@@ -76,12 +76,18 @@
 </div>
 <h3>Альбомы:</h3>
 {% for i in albums %}
-<li><a href="{% url 'album' i %}">Просмотреть альбом</a></li>
+{% if i.name is None %}
+    <li><a href="{% url 'album' i.id %}">{{ i.id }}</a></li>
+{% else %}
+    <li><a href="{% url 'album' i.id %}">{{ i.name }}</a></li>
+{% endif %}
 {% endfor %}
 
+{% if request.user.id == profile_id %}
 <form method="post">
     {% csrf_token %}
     <input type="text" name="name">
     <button>Создать новый альбом</button>
 </form>
+{% endif %}
 {% endblock %}

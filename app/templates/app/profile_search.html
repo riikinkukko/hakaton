@@ -5,6 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-
+    <form method="get" action="{% url 'profile_search' %}">
+        {% csrf_token %}
+        <input type="search" name="q">
+        <button type="submit">Найти</button>
+    </form>
+    {% for user in users %}
+        <a href="http://127.0.0.1:8000/profile/{{user.id}}">{{ user }}</a>
+    {% endfor %}
 </body>
 </html>
