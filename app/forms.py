@@ -1,7 +1,15 @@
 from django import forms
 from .models import *
+from django_range_slider.fields import RangeSliderField
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+
+month_choices = {1: 'Январь', 2: "Февраль", 3: "Март", 4: "Апрель", 5: "Май", 6: "Июнь", 7: "Июль", 8: "Август", 9: "Сентябрь", 10: "Октябрь", 11: "Ноябрь", 12: "Декабрь"}
+year_choices_min = []
+year_choices_max = [2025]
+for i in range(1990, 2025):
+    year_choices_min.append(i)
+    year_choices_max.append(i)
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
@@ -36,3 +44,9 @@ class UploadVideoForm(forms.ModelForm):
         widgets = {
             "user_id": forms.HiddenInput(),
         }
+
+class MetaFilter(forms.Form):
+    image_width = RangeSliderField(minimum=0, maximum=5000, step=10, label='Ширина изображения')
+    image_height = RangeSliderField(minimum=0, maximum=5000, step=10, label='Высота изображения')
+    min_date = forms.DateTimeField(widget=forms.SelectDateWidget(years=year_choices_min, months=month_choices), label='Изображение создано не раньше')
+    max_date = forms.DateTimeField(widget=forms.SelectDateWidget(years=year_choices_max, months=month_choices), label='Изображение создано не позже')

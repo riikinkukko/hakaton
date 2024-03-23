@@ -1,6 +1,11 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
+<form action="{% url 'show_profile' profile_id %}" method="post">
+    {% csrf_token %}
+    {{ filter_form.as_p }}
+    <button type="submit" name="meta_filter">Фильтр</button>
+</form>
 <div class="container">
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 {% for i in images %}
@@ -87,7 +92,7 @@
 <form method="post">
     {% csrf_token %}
     <input type="text" name="name">
-    <button>Создать новый альбом</button>
+    <button name="add_album">Создать новый альбом</button>
 </form>
 {% endif %}
 {% endblock %}

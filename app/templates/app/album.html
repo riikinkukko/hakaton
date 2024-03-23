@@ -6,6 +6,11 @@
 {% else %}
     <h3>{{ name }}</h3>
 {% endif %}
+<form action="{% url 'album' album_id %}" method="post">
+    {% csrf_token %}
+    {{ filter_form.as_p }}
+    <button type="submit" name="meta_filter">Фильтр</button>
+</form>
 <div class="container">
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 {% for i in images %}
@@ -155,7 +160,7 @@
 <p>Участники:</p>
 {% for i in users %}
 {% if i.id in participants_ids %}
-<li>{{ i.username }}</li>
+<li><a href="{% url 'show_profile' i.id %}">{{ i.username }}</a></li>
 {% if request.user.id in participants_ids %}
     <form method="post">
         {% csrf_token %}
