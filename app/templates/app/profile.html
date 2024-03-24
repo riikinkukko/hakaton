@@ -186,16 +186,20 @@
   </div>
 </div>
 
+<div class="album_cont">
+  <h3>Альбомы:</h3>
+  {% for i in albums %}
+  <div class="list_point">
+  <li style="list-style-type: none"><a href="{% url 'album' i %}"> <button class="btn btn-outline-success">Просмотреть альбом</button></a></li>
+  </div>
+  {% endfor %}
 
+  <hr>
 
-<h3>Альбомы:</h3>
-{% for i in albums %}
-<li><a href="{% url 'album' i %}">Просмотреть альбом</a></li>
-{% endfor %}
-
-<form method="post">
-  {% csrf_token %}
-  <button>Создать новый альбом</button>
-</form>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn btn-secondary">Создать новый альбом</button>
+  </form>
+</div>
 
 {% endblock %}
