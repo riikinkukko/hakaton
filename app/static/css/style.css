@@ -1,0 +1,67 @@
+.text-center {
+  font-size: 72px;
+}
+.card {
+  display: flex;
+}
+.close {
+  border-radius: 20px;
+}
+/* .modal-img {
+  width: 250px;
+  height: 250px;
+} */
+.list_point {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  max-width: 748px;
+  flex-wrap: wrap;
+}
+.album_cont {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 800px;
+  flex-direction: row;
+  border: 2px #000000;
+  flex-wrap: wrap;
+}
+.name_alb {
+  align-items: center;
+}
+.cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.new-center {
+  align-items: center;
+}
+.card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.center-row {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.registr {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ch_reg {
+  margin-top: 150px;
+  border: 2px solid green;
+  border-radius: 30px;
+  padding: 20px;
+}

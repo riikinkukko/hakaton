@@ -1,0 +1,10 @@
+{% extends 'app/base.html' %} {% block content %}
+<div class="registr">
+  <form action="{% url url %}" method="post" enctype="multipart/form-data">
+    <div class="ch_reg">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-succes">Добавить</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
